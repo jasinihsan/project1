@@ -1,0 +1,18 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ tour.title }}</title>
+</head>
+<body>
+    <h1>{{ tour.title }}</h1>
+    <p>{{ tour.description }}</p>
+    <p>Duration: {{ tour.duration }} days</p>
+    <p>Price: ₹{{ tour.price }}</p>
+    <form method="post" action="{% url 'book_tour' tour.id %}">
+        {% csrf_token %}
+        <button type="submit">Book Now</button>
+    </form>
+</body>
+</html>

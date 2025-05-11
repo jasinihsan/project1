@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-lg rounded">
+        <div class="card-body text-center">
+            <h2 class="mb-3 text-primary">Welcome to Your Account</h2>
+            <p class="lead">Manage your profile, bookings, and more from here.</p>
+            
+            <div class="mt-4">
+                <a href="{% url 'edit_profile' %}" class="btn btn-outline-primary btn-lg">
+                    Edit Profile
+                </a>
+                <a href="{% url 'user_dashboard' %}" class="btn btn-primary btn-lg">
+                    Go to Dashboard
+                </a>
+                <a href="{% url 'user_logout' %}" class="btn btn-danger btn-lg">
+                    Logout
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+    .card {
+        max-width: 600px;
+        margin: auto;
+        padding: 20px;
+        border-radius: 15px;
+    }
+</style>
+{% endblock %}

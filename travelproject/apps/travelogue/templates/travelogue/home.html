@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Home - Travelogue{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="hero" style="background: url('{% static 'images/home_banner.jpg' %}') no-repeat center center/cover;">
+    <div class="overlay">
+        <h1>Explore the World with Travelogue</h1>
+        <p>Discover amazing places at exclusive deals</p>
+        <a href="{% url 'accounts:register' %}" class="btn btn-primary btn-lg">Get Started</a>
+    </div>
+</div>
+
+
+<!-- Featured Packages -->
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Featured Tour Packages</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <img src="{% static 'images/beach.jpg' %}" class="card-img-top" alt="Tour 1">
+                <div class="card-body">
+                    <h5 class="card-title">Beach Paradise</h5>
+                    <p class="card-text">Enjoy the stunning beaches and relax.</p>
+                    <a href="#" class="btn btn-primary">Book Now</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <img src="{% static 'images/mountain adventure.jpg' %}" class="card-img-top" alt="Tour 2">
+                <div class="card-body">
+                    <h5 class="card-title">Mountain Adventure</h5>
+                    <p class="card-text">Experience breathtaking views and adventure.</p>
+                    <a href="#" class="btn btn-primary">Book Now</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <img src="{% static 'images/city tour.jpg' %}" class="card-img-top" alt="Tour 3">
+                <div class="card-body">
+                    <h5 class="card-title">City Tour</h5>
+                    <p class="card-text">Explore the beauty of modern cities.</p>
+                    <a href="#" class="btn btn-primary">Book Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

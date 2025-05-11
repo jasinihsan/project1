@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="auth-container">
+        <h3 class="text-center">Login</h3>
+
+        {% if form.errors %}
+            <div class="alert alert-danger">
+                <strong>Error:</strong>
+                {% for field in form %}
+                    {% if field.errors %}
+                        <p>{{ field.name }}: {% for error in field.errors %}{{ error }} {% endfor %}</p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form method="POST" autocomplete="off">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input 
+                    type="email" 
+                    name="username"  
+                    class="form-control" 
+                    autocomplete="off" 
+                    placeholder="Enter email" 
+                    required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input 
+                    type="password" 
+                    name="password" 
+                    class="form-control" 
+                    autocomplete="new-password" 
+                    placeholder="Enter password" 
+                    required>
+            </div>
+            <button type="submit" class="btn btn-custom w-100">Login</button>
+        </form>
+
+        <p class="text-center mt-3">
+            Don't have an account? <a href="{% url 'accounts:register' %}">Register</a>
+        </p>
+    </div>
+</div>
+
+<style>
+    .auth-container {
+        width: 400px;
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    .btn-custom {
+        background: #6e8efb;
+        color: white;
+        border: none;
+    }
+    .btn-custom:hover {
+        background: #5a7be8;
+    }
+</style>
+{% endblock %}

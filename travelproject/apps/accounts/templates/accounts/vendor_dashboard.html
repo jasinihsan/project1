@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Vendor Dashboard{% endblock %}
+
+{% block content %}
+    <h2>Welcome Vendor, {{ user.username }}!</h2>
+    <p>Email: {{ user.email }}</p>
+    
+    <a href="{% url 'tours:add_tour' %}">Add Tour Package</a>  
+    <br>
+    <a href="{% url 'bookings:vendor_bookings' %}">My Bookings</a>
+    <br>
+    <a href="{% url 'accounts:user_logout' %}">Logout</a>
+
+
+
+{% endblock %}
+<h2>Your Tour Packages</h2>
+<ul>
+    {% for tour in user.tour_set.all %}
+        <li>{{ tour.title }} - {{ tour.price }}</li>
+    {% empty %}
+        <li>No tours added yet.</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'add_tour' %}">Add New Tour</a>
+

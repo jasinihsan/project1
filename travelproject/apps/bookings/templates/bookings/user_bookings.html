@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Your Bookings</h2>
+    <div class="row">
+        {% for booking in bookings %}
+        <div class="col-md-4">
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">{{ booking.tour.title }}</h5>
+                    <p class="card-text">Date: {{ booking.booking_date }}</p>
+                    <p class="card-text">Total Price: ₹{{ booking.total_price }}</p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-danger">No bookings found.</p> 
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

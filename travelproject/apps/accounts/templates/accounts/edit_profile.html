@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Profile{% endblock %}
+
+{% block content %}
+    <h2>Edit Profile</h2>
+
+    {% if request.user.user_type == 'customer' %}
+        <form method="post">
+            {% csrf_token %}
+
+            <div>
+                {{ form.full_name.label_tag }}<br>
+                {{ form.full_name }}
+            </div>
+
+            <div>
+                {{ form.email.label_tag }}<br>
+                {{ form.email }}
+            </div>
+
+            <hr>
+
+            <div>
+                {{ form.password.label_tag }}<br>
+                {{ form.password }}
+            </div>
+
+            <div>
+                {{ form.confirm_password.label_tag }}<br>
+                {{ form.confirm_password }}
+            </div>
+
+            <button type="submit">Save Changes</button>
+        </form>
+    {% else %}
+        <p>You are not authorized to access this page.</p>
+    {% endif %}
+{% endblock %}

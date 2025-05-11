@@ -1,0 +1,17 @@
+<!-- accounts/customer_dashboard.html -->
+{% extends 'base.html' %}
+
+{% block title %}Customer Dashboard{% endblock %}
+
+{% block content %}
+<h2>Welcome, {{ user.full_name|default:user.email }}!</h2>
+<p>Email: {{ user.email }}</p>
+<p>User Type: {{ user.get_user_type_display }}</p>
+
+<h3>Explore Our Tour Packages</h3>
+<a href="{% url 'tours:tours_list' %}">Browse Tours</a>
+
+<br><br>
+<a href="{% url 'accounts:edit_profile' %}">Edit Profile</a> |  
+<a href="{% url 'accounts:user_logout' %}">Logout</a>
+{% endblock %}

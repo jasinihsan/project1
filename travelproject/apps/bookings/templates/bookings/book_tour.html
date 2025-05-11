@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Book Tour: {{ tour.title }}</h2>
+
+    {% if user.is_authenticated and user.user_type == "customer" %}
+        {% if form.errors %}
+        <div class="alert alert-danger">
+            <ul>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <div class="card shadow p-4">
+            <form method="post" class="needs-validation" novalidate>
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label">Number of People</label>
+                    <div>
+                        {{ form.num_people }}
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Book Now</button>
+            </form>
+        </div>
+    {% else %}
+        <div class="alert alert-danger">Only customers can book this tour.</div>
+    {% endif %}
+</div>
+{% endblock %}
+

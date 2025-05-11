@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Vendor Bookings</h2>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Tour</th>
+                    <th>Customer</th>
+                    <th>Booking Date</th>
+                    <th>People</th>
+                    <th>Total Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in bookings %}
+                <tr>
+                    <td>{{ booking.tour.title }}</td>
+                    <td>{{ booking.user.username }}</td>
+                    <td>{{ booking.booking_date }}</td>
+                    <td>{{ booking.num_people }}</td>
+                    <td>₹{{ booking.total_price }}</td>  
+                </tr>
+                {% empty %}
+                <tr><td colspan="5" class="text-center text-danger">No bookings yet.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

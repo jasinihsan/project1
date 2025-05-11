@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+<style>
+    .auth-container {
+        max-width: 450px;
+        background: #fff;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+        margin: 60px auto;
+    }
+
+    .form-label {
+        font-weight: 600;
+    }
+
+    .form-control {
+        border-radius: 8px;
+    }
+
+    .btn-custom {
+        background: linear-gradient(135deg, #6e8efb, #a777e3);
+        color: #fff;
+        font-weight: 500;
+        border-radius: 8px;
+    }
+
+    .btn-custom:hover {
+        background: linear-gradient(135deg, #5a7be8, #9266d3);
+    }
+
+    .auth-header {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .auth-header h3 {
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    .text-muted {
+        font-size: 14px;
+    }
+</style>
+
+<div class="container">
+    <div class="auth-container">
+        <div class="auth-header">
+            <h3>Register</h3>
+            <p class="text-muted">Create your account</p>
+        </div>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            {% if form.errors %}
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        {% for field, errors in form.errors.items %}
+                            {% for error in errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <div class="mb-3">
+                <label class="form-label">Full Name</label>
+                {{ form.full_name|add_class:"form-control" }}
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                {{ form.email|add_class:"form-control" }}
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">User Type</label>
+                {{ form.user_type|add_class:"form-control" }}
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                {{ form.password|add_class:"form-control" }}
+            </div>
+
+            <button type="submit" class="btn btn-custom w-100 mt-2">Register</button>
+        </form>
+
+        <p class="text-center mt-3">
+            Already have an account?
+            <a href="{% url 'accounts:login' %}">Login</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

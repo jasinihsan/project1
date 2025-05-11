@@ -1,0 +1,14 @@
+<!-- apps/payments/templates/payments/make_payment.html -->
+
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Complete Payment</h2>
+  <p>Tour: {{ payment.booking.tour.title }}</p>
+  <p>Amount: ₹{{ payment.amount }}</p>
+
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Pay Now</button>
+  </form>
+{% endblock %}

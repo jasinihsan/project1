@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}User Dashboard{% endblock %}
+
+{% block content %}
+
+
+    <h2>Welcome, {{ user.full_name|default:user.email }}!</h2>
+    <p>Email: {{ user.email }}</p>
+    <p>User Type: {{ user.get_user_type_display }}</p>
+
+    {% if user.user_type == "customer" %}
+        <h3>Explore Our Tour Packages</h3>
+        <a href="{% url 'tours:tours_list' %}">Browse Tours</a>
+    {% elif user.user_type == "vendor" %}
+        <h3>Manage Your Tour Packages</h3>
+        <a href="{% url 'accounts:vendor_dashboard' %}">Go to Vendor Dashboard</a>
+    {% endif %}
+
+    <br><br>
+    <a href="{% url 'accounts:edit_profile' %}">Edit Profile</a> |  
+    <a href="{% url 'accounts:user_logout' %}">Logout</a>
+
+{% endblock %}

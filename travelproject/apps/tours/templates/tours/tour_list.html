@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Available Tour Packages</h2>
+    <div class="row">
+        {% for tour in tours %}
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">{{ tour.title }}</h5>
+                    <p class="card-text">{{ tour.description|truncatechars:100 }}</p>
+                    <p><strong>Price:</strong> {{ tour.get_currency_display }}{{ tour.price }}</p>
+                    <p><strong>Duration:</strong> {{ tour.duration }} days</p>
+                    <a href="{% url 'tours:tour_detail' tour.id %}" class="btn btn-primary">View Details</a> <!-- ✅ Correct -->
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>No tour packages available.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

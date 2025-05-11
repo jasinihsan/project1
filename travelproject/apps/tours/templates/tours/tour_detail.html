@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>{{ tour.title }}</h2>
+    <p><strong>Category:</strong> {{ tour.get_category_display }}</p>
+    <p><strong>Description:</strong> {{ tour.description }}</p>
+    <p><strong>Price:</strong> {{ tour.get_currency_display }}{{ tour.price }}</p>
+    <p><strong>Duration:</strong> {{ tour.duration }} days</p>
+    <p><strong>Available Slots:</strong> {{ tour.available_slots }}</p>
+    <p><strong>Expiry Date:</strong> {{ tour.expiry_date }}</p>
+ 
+   
+    {% if user.is_authenticated and user.user_type == 'customer' %}
+
+    <a href="{% url 'bookings:book_tour' tour.id %}" class="btn btn-primary">Book Now</a>
+
+    {% else %}
+        <p><a href="{% url 'login' %}">Login</a> as a customer to book this tour.</p>
+    {% endif %}
+
+    <a href="{% url 'tours:tours_list' %}" class="btn btn-secondary mt-2">Back to Tours</a>
+</div>
+{% endblock %}
