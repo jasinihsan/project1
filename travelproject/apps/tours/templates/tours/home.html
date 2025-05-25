@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Home | Travelogue</title>
 </head>
 <body>
     <!-- Navigation Bar -->
     <nav>
         <ul style="list-style-type: none; display: flex; gap: 15px; padding: 10px;">
-            <li><a href="/">Home</a></li>
+            <li><a href="{% url 'tours:home' %}">Home</a></li>
             {% if user.is_authenticated %}
                 <li><a href="{% url 'accounts:dashboard' %}">Dashboard</a></li>
                 <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
@@ -26,9 +26,14 @@
         {% for tour in tours %}
             <div style="border: 1px solid #ccc; padding: 10px; width: 250px;">
                 <h2>{{ tour.title }}</h2>
-                <img src="{{ tour.image.url }}" alt="{{ tour.title }}" width="100%">
+                {% if tour.image %}
+                    <img src="{{ tour.image.url }}" alt="{{ tour.title }}" width="100%" />
+                {% else %}
+                    <img src="{% static 'default-tour.jpg' %}" alt="Default Tour Image" width="100%" />
+                {% endif %}
                 <p>{{ tour.description|truncatewords:20 }}</p>
                 <p><strong>Price:</strong> ₹{{ tour.price }}</p>
+                <a href="{% url 'tours:tour_detail' tour.id %}">View Details</a>
             </div>
         {% empty %}
             <p>No tour packages available.</p>

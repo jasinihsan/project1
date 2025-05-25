@@ -52,7 +52,7 @@ def booking_home(request):
 
 def vendor_bookings(request):
     bookings = Booking.objects.filter(tour__vendor=request.user)
-    return render(request, 'bookings/vendor_bookings.html', {'bookings': bookings})
+    return render(request, 'bookings/vendor_booking_list.html', {'bookings': bookings})
 
 def vendor_home(request):
     tours = TourPackage.objects.filter(vendor=request.user)

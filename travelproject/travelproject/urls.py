@@ -25,7 +25,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),  
     path("bookings/", include("apps.bookings.urls")),
     path("accounts/", include("apps.accounts.urls", namespace="accounts")),  
-    path("vendors/", include("apps.vendors.urls")),
+    path('vendors/', include('apps.vendors.urls', namespace='vendors')),
     path("tours/", include("apps.tours.urls", namespace="tours")),
     path('payments/', include('apps.payments.urls', namespace='payments')), 
     path('login/', views.custom_login, name='login'),

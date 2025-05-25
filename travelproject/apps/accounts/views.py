@@ -5,6 +5,10 @@ from django.contrib import messages
 from django.urls import reverse
 from apps.accounts.forms import RegisterForm, CustomUserEditForm, LoginForm
 from apps.accounts.models import CustomUser
+from apps.tours.models import TourPackage
+from django.urls import reverse
+
+
 
 def register_view(request):
     """Handles User Registration."""
@@ -51,7 +55,7 @@ def login_view(request):
                 if user.user_type == "customer":
                     return redirect(reverse("accounts:user_dashboard"))
                 elif user.user_type == "vendor":
-                    return redirect(reverse("accounts:vendor_dashboard"))
+                    return redirect(reverse("vendors:vendor_dashboard"))
                 else:
                     return redirect(reverse("admin:index")) 
             messages.error(request, "Invalid email or password.")
@@ -67,12 +71,19 @@ def user_dashboard(request):
     if request.user.user_type == 'customer':
         return render(request, 'accounts/customer_dashboard.html')
     else:
-        return render(request, 'accounts/vendor_dashboard.html')  
+        return render(request, 'vendors/vendor_dashboard.html')  
 
 @login_required
 def vendor_dashboard(request):
     """Vendor Dashboard."""
-    return render(request, "accounts/vendor_dashboard.html")
+    if request.user.user_type == 'vendor':
+        # Only show tours belonging to the logged-in vendor
+        tours = TourPackage.objects.filter(vendor=request.user)
+        return render(request, "vendors/vendor_dashboard.html", {'tours': tours})
+    else:
+        messages.error(request, "you are not authorized to view this page .")
+        return redirect("accounts:user_dashboard")
+
 
 
 def user_logout(request):
@@ -123,16 +134,21 @@ def custom_login(request):
 
     if request.method == "POST":
         if form.is_valid():
-            email = form.cleaned_data['username']
+            email = form.cleaned_data['username'].strip().lower()
             password = form.cleaned_data['password']
 
-            
             user = authenticate(request, username=email, password=password)
 
             if user is not None:
                 login(request, user)
                 messages.success(request, "Login successful!")
-                return redirect('accounts:user_dashboard')  
+
+                if user.user_type == "customer":
+                    return redirect('accounts:user_dashboard')
+                elif user.user_type == "vendor":
+                    return redirect('vendors:vendor_dashboard')
+                else:
+                    return redirect('admin:index')  
             else:
                 messages.error(request, "Invalid credentials")
         else:

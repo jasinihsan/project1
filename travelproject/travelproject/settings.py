@@ -81,10 +81,14 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
          'DIRS': [
-            os.path.join(BASE_DIR, 'templates'),  # Global templates folder
+            os.path.join(BASE_DIR, 'templates'),  
             os.path.join(BASE_DIR, 'apps', 'travelogue', 'templates'),
             os.path.join(BASE_DIR, 'apps', 'accounts', 'templates'),
             os.path.join(BASE_DIR, 'apps', 'payments', 'templates'),
+            os.path.join(BASE_DIR, 'apps', 'bookings', 'templates'),
+            os.path.join(BASE_DIR,'apps','tours','templates'),
+            os.path.join(BASE_DIR, 'apps', 'vendors', 'templates'),
+
       ],
 
         'APP_DIRS': True,
@@ -162,3 +166,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = "/accounts/dashboard/"  
 LOGOUT_REDIRECT_URL = "/accounts/login/" 
+LOGIN_REDIRECT_URL = '/vendors/dashboard/'
+

@@ -12,7 +12,22 @@
                     <p class="card-text">{{ tour.description|truncatechars:100 }}</p>
                     <p><strong>Price:</strong> {{ tour.get_currency_display }}{{ tour.price }}</p>
                     <p><strong>Duration:</strong> {{ tour.duration }} days</p>
-                    <a href="{% url 'tours:tour_detail' tour.id %}" class="btn btn-primary">View Details</a> <!-- ✅ Correct -->
+
+                    <!-- ✅ Approval Status Badge -->
+                    {% if is_vendor_view %}
+                        {% if tour.is_approved %}
+                            <span class="badge bg-success">Approved</span>
+                        {% else %}
+                            <span class="badge bg-warning text-dark">Pending Approval</span>
+                        {% endif %}
+                        <br><br>
+                    {% endif %}
+
+                    <a href="{% url 'tours:tour_detail' tour.id %}" class="btn btn-primary">View Details</a>
+                    
+                    {% if is_vendor_view %}
+                    <a href="{% url 'vendors:edit_tour' tour.id %}" class="btn btn-secondary ms-2">Edit</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -20,5 +35,9 @@
         <p>No tour packages available.</p>
         {% endfor %}
     </div>
+
+    {% if is_vendor_view %}
+    <a href="{% url 'vendors:add_tour' %}" class="btn btn-success mt-3">Add New Tour</a>
+    {% endif %}
 </div>
 {% endblock %}
